@@ -65,4 +65,7 @@ is.na(zChar)
 # 4.7.2 Missing Data - NULL
 # NULL is the absence of anything. It represents nothingness. Important diff between NA
 # and NULL is that NULL is atomical and cannot exist within a vector. If used within a vector, 
-# it will simply disappear
+# it will simply disappear. Therefore, NULL is appropriately not vectorized
+d <- NULL
+is.null(d)
+is.null(7)
