@@ -49,3 +49,8 @@ theDF[, c("First", "Sport")]  # access multiple columns by name
 theDF[, "Sport"]  # access just the "Sport" column by name
 theDF["Sport"]    # returns a one column data.frame
 class(theDF["Sport"])   # check class of the one column data frame
+theDF[["Sport"]]  # access just the "Sport" column, this returns a (factor) vendor
+class(theDF[["Sport"]])
+theDF[, "Sport", drop=FALSE]
+class(theDF[, "Sport", drop=FALSE])
+theDF[, 3, drop=FALSE]
