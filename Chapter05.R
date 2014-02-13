@@ -54,3 +54,84 @@ class(theDF[["Sport"]])
 theDF[, "Sport", drop=FALSE]
 class(theDF[, "Sport", drop=FALSE])
 theDF[, 3, drop=FALSE]
+
+# factors are stored specially. To see how its represented in data.frame form, use model.matrix to create a set of
+# indicator variables. That is one column for each level of a factor, with a 1 if a row contains that level or
+# a 0 otherwise
+newFactor <- factor(c("Pennsylvania", "New York", "New Jersey", "New York", "Tennessee", "Massachusetts", "Pennyslvania", "New York"))
+model.matrix(~newFactor - 1)
+
+# 5.2 Lists - A container to hold arbitrary objects of either the same type of varying type
+# 
+# creates a 3 element list
+list(1, 2, 3)
+
+# creates a single element list where the only element is a vector that has 3 elements
+list(c(1, 2, 3))
+
+# creates a 2 element list, the 1st element is a 3 element vector, the 2nd element is a give element vector
+list3 <- list(c(1, 2, 3), 3:7)
+
+# two element list, 1st element is a data.frame, 2nd element is a 10 element vector
+list(theDF, 1:10)
+
+# 3 element list, 1st is a data.frame, 2nd is a vector, 3rd is list3, which holds 2 vectors
+list5 <- list(theDF, 1:10, list3)
+
+# how to access list with names
+names(list5)
+names(list5) <- c("data.frame", "vector", "list") # assign names
+list6 <- list(TheDataFrame = theDF, TheVector = 1:10, TheList = list3)  # assign names during creation
+names(list6)
+
+# creating an empty list
+emptyList <- vector(mode="list", length=4)
+
+# access individual elements of a list, use double square brackets, specifying either the element number of name
+list5[[1]]
+list5[["data.frame"]]
+
+# once an element is accessed, it can be treated as if that actual element is being used, allowing nesting
+# indexing of elements
+list5[[1]]$Sport
+list5[[1]][, "Second"]
+list5[[1]][, "Second", drop=FALSE]
+
+# it is also possible to append elements to a list simply by using an index (either numeric or names) that does not exist
+length(list5)
+list5[[4]] <- 2 # add a 4th element, unnamed
+list5[["NewElement"]] <- 3:6 
+
+# CAUTION/BEST PRACTICES: Occassionally appending to a list or vector or data.frame for that matter is fine.
+# but doing so repeatedly is computationally expensive. It is best to create a list as long as its final desired size
+# and then fill it in using the appropriate indices
+
+# 5.3 Matrices - common mathematical structure that is essential to statistics
+# similar to data.frame except that every single element must be the same type, commonly all numerics
+
+# create a 5x2 matrix
+A <- matrix(1:10, nrow=5)
+B <- matrix(21:30, nrow=5)
+C <- matrix(21:40, nrow=2)
+nrow(A)
+ncol(A)
+dim(A)
+
+# can use artihmetic on matrix with same dimensions, as well as boolean check
+A + B   
+A * B
+A == B
+
+# matrix multiplication requires the number of cols of left hand matrix to be the same as number of rows of 
+# right hand matrix. So A(5x2) and B(5x2) needs B to be transposed first
+A %*% t(B)
+
+# matrices can also have names for rows and column
+colnames(A)
+rownames(A)
+colnames(A) <- c("Left", "Right")
+rownames(A) <- c("1st", "2nd", "3rd", "4th", "5th")
+colnames(B) <- c("First", "Second")
+rownames(B) <- c("One", "Two", "Three", "Four", "Five")
+colnames(C) <- LETTERS[1:10]  # 2 special vectors, letters and LETTERS (lowercase and uppercase respectively)
+rownames(C) <- c("Top", "Bottom")
