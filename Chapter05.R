@@ -135,3 +135,23 @@ colnames(B) <- c("First", "Second")
 rownames(B) <- c("One", "Two", "Three", "Four", "Five")
 colnames(C) <- LETTERS[1:10]  # 2 special vectors, letters and LETTERS (lowercase and uppercase respectively)
 rownames(C) <- c("Top", "Bottom")
+
+# effect of transposing a matrix and multiplying matrices
+# transposing naturally flips the row and column names
+# matrix multiplication keeps the row names from the left matrix and the column names from the right matrix
+t(A)
+A %*% C
+
+#################################################################################################################
+# 5.4 Arrays - A multi-dimensional vector. Must be all of the same type and individual elements are accessed
+# using square brackets. 1st element is the row index, 2nd elements is the column index, and remaining 
+# elements are for outer dimensions
+# Main difference between an array and a matrix is that matrices are restricted to 2 dimensions while arrays can 
+# have an arbitraty number
+#################################################################################################################
+
+theArray <- array(1:12, dim=c(2, 3, 2))
+theArray
+theArray[1, ,]
+theArray[1, , 1]
+theArray[, , 1]
