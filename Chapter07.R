@@ -77,3 +77,41 @@ ggplot(economics, aes(x=date, y=pop)) + geom_line()
 require(lubridate)
 
 # create year and month variables
+economics$year <- year(economics$date)
+
+# the label argument to month means that the results should be the names of the month instead of the number
+economics$month <- month(economics$date, label=TRUE)
+
+# subset the data
+# the which function returns the indices of observations where the tested condition was TRUE
+econ2000 <- economics[which(economics$year >= 2000), ]
+
+# load the scales package for better axis formatting
+require(scales)
+
+# build the foundation of the plot 
+g <- ggplot(econ2000, aes(x=month, y=pop))
+
+# add lines color coded and grouped by year
+# the group aesthetic breaks the data into separate groups
+g <- g + geom_line(aes(color=factor(year), group=year))
+# name the legend "Year"
+g <- g + scale_color_discrete(name="Year")
+# format the y-axis
+g <- g + scale_y_continuous(labels=comma)
+# add a title and axis labels
+g <- g + labs(title="Population Growth", x="Month", y="Population")
+# plot the graph
+g
+
+# 7.2.5 Themes
+# Great part of ggplots is the ability to use themes to change easily the way plots look
+require(ggthemes)
+
+# build a plot and store it in g2
+g2 <- ggplot(diamonds, aes(x=carat, y=price)) + geom_point(aes(color=color))
+ # apply a few themes
+g2 + theme_economist() + scale_colour_economist()
+g2 + theme_excel() + scale_colour_excel()
+g2 + theme_tufte()
+g2 + theme_wsj()
