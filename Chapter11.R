@@ -73,3 +73,25 @@ mapply(simpleFunc, firstList, secondList)
 require(ggplot2)
 data(diamonds)
 head(diamonds)
+
+# calculate average price for each type of cut: Fair, Good, Very Good, Premium and Ideal
+# 1st arg - price to be grouped by cut, 2nd arg - data to use, 3rd arg - function to apply to each subset of the data
+aggregate(price ~ cut, diamonds, mean)
+
+# to further group by more than one variable
+aggregate(price ~ cut + color, diamonds, mean)
+
+# to aggregate 2 variables, they must be combined using the cbind on the left side of the formula
+# this would find the mean price of both price and carat for each value of cut
+aggregate(cbind(price, carat) ~ cut, diamonds, mean)
+
+# to further expand on the above, you can also provide more than 2 variables on the right side
+aggregate(cbind(price, carat) ~ cut + color, diamonds, mean)
+
+##############################################################################
+# 11.3 plyr
+# Consists of functions such as ddply, llply, ldply
+# 1st letter indicates the type of input
+# 2nd letter indicates the type of output
+# 
+##############################################################################
